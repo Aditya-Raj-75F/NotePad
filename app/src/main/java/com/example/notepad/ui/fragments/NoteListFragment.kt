@@ -39,7 +39,7 @@ class NoteListFragment : BaseFragment(), NoteListener {
         viewModel.getAllNotes(view)
         val addNoteButton = view?.findViewById<FloatingActionButton>(R.id.addNoteButton)
         addNoteButton?.setOnClickListener {
-            val action = NoteListFragmentDirections.actionNoteListFragmentToNoteEditableFragment()
+            val action = NoteListFragmentDirections.viewToEditNote()
             Navigation.findNavController(it).navigate(action)
         }
     }

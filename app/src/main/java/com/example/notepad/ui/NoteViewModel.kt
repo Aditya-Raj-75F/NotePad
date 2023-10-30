@@ -13,6 +13,11 @@ class NoteViewModel : ViewModel() {
     var title: String? = null
     var content: String? = null
     var idString: String? = null
+        set(value) {
+            field = value
+            // Convert the idString to Int and update the id property
+            id = value?.toIntOrNull() ?: -1 // Use -1 as a default value if the conversion fails
+        }
 
     var noteListener: NoteListener? = null
 
@@ -35,43 +40,19 @@ class NoteViewModel : ViewModel() {
 
     fun onDeleteNote(view: View) {
         Coroutines.main {
-            NoteRepository().deleteNote(view.context, id, title, content)
+            NoteRepository().deleteNote(view.context, id)
         }
         noteListener?.onSuccess(view)
     }
 
     fun getAllNotes(view: View) {
-//                LiveData<List<NoteModel>> = liveData {
-//            val result = NoteRepository().getAllNotes(view.context)
-//            emit(result)
-//        }
                 Coroutines.main {
             noteListener?.onStarted(NoteRepository().getAllNotes(view.context))
-//            Log.d("USER_TEST","Inside coroutin in viewMode ${noteList}")
         }
     }
-
-    fun configureId(noteId: Int) {
-        id = noteId
-    }
-
-    fun configureId(idString: String) {
-        id = idString.toInt()
-    }
-
     fun loadExistingNoteData(existingNote: NoteModel) {
         id = existingNote.id
         title = existingNote.title
         content = existingNote.content
-    }
-
-    fun deleteNote(view: View, id: Int) {
-        Coroutines.main {
-            NoteRepository().deleteNote(view.context, id, "", "")
-            Log.d("USER_TEST","Deleted the Note")
-            Log.d("USER_TEST","$noteListener")
-            Toast.makeText(view.context, "Note deleted", Toast.LENGTH_LONG).show()
-            noteListener?.onSuccess(view)
-        }
     }
 }

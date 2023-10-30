@@ -11,7 +11,7 @@
         android:label="fragment_note_list"
         tools:layout="@layout/fragment_note_list" >
         <action
-            android:id="@+id/action_noteListFragment_to_noteEditableFragment"
+            android:id="@+id/viewToEditNote"
             app:destination="@id/noteEditableFragment" />
     </fragment>
     <fragment
@@ -20,12 +20,8 @@
         android:label="fragment_note_editable"
         tools:layout="@layout/fragment_note_editable" >
         <action
-            android:id="@+id/action_noteEditableFragment_to_noteListFragment"
+            android:id="@+id/editToViewNote"
             app:destination="@id/noteListFragment" />
-        <argument
-            android:name="noteId"
-            app:argType="integer"
-            android:defaultValue="-1" />
         <argument
             android:name="noteArgs"
             app:nullable="true"

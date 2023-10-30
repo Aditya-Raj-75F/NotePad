@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
+// Data Access Object for specifiying database operations permissible
 @Dao
 interface NoteDao {
     @Insert
