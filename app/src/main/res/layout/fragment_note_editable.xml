@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.notepad.ui.NoteViewModel"
+            />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.NoteEditableFragment">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/addOrUpdateNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/add_note"
+                android:textColor="@color/orange"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/saveNoteButton"
+                android:onClick="@{viewmodel::onSaveNote}"
+                android:layout_width="51dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/baseline_done_24" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:text="@={viewmodel.title}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:hint="@string/note_title_hint"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editContent"
+            android:text="@={viewmodel.content}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/editTitle"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/note_content_hint"
+            android:inputType="textMultiLine"
+            android:padding="10dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteButton"
+            android:onClick="@{viewmodel::onDeleteNote}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            android:backgroundTint="@color/orange"
+            android:src="@drawable/baseline_delete_24" />
+
+    </RelativeLayout>
+</layout>
