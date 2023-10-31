@@ -18,7 +18,7 @@ import com.example.notepad.ui.NoteListener
 import com.example.notepad.ui.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class NoteEditableFragment : BaseFragment(), NoteListener {
+class NoteEditableFragment : BaseFragment() {
 
     private var note : NoteModel? = null
     lateinit var binding: FragmentNoteEditableBinding
@@ -34,26 +34,12 @@ class NoteEditableFragment : BaseFragment(), NoteListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+        val viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
         if(note!=null)
             viewModel.loadExistingNoteData(note!!)
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_editable, container, false)
         binding.viewmodel = viewModel
-        viewModel.noteListener = this
         return binding.root
-    }
-
-    override fun onStarted(allNotes: List<NoteModel>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onSuccess(view: View) {
-        val action = NoteEditableFragmentDirections.editToViewNote()
-        Navigation.findNavController(view).navigate(action)
-    }
-
-    override fun onFailure() {
-        TODO("Not yet implemented")
     }
 }

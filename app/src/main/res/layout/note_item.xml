@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="viewmodel"
-            type="com.example.notepad.ui.NoteViewModel" />
-    </data>
-    <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
@@ -16,6 +10,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/border"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -26,7 +21,6 @@
 
                 <TextView
                     android:id="@+id/noteTitleItem"
-                    android:text="@={viewmodel.title}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -56,7 +50,6 @@
 
                 <TextView
                     android:id="@+id/idTextView"
-                    android:text="@={viewmodel.idString}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="invisible" />
@@ -64,7 +57,6 @@
 
             <TextView
                 android:id="@+id/noteContentItem"
-                android:text="@={viewmodel.content}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -73,4 +65,3 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</layout>

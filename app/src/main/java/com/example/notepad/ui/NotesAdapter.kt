@@ -12,21 +12,16 @@ import com.example.notepad.databinding.NoteItemBinding
 import com.example.notepad.db.NoteModel
 import com.example.notepad.ui.fragments.NoteListFragmentDirections
 
-class NotesAdapter(private var notes: List<NoteModel>, private val viewModel: NoteViewModel) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
-    inner class NoteViewHolder(val view: View, private val binding: NoteItemBinding) : RecyclerView.ViewHolder(view) {
+class NotesAdapter(private var notes: List<NoteModel>) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
+    inner class NoteViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val titleNotes: TextView = view.findViewById(R.id.noteTitleItem)
         val contentNotes: TextView = view.findViewById(R.id.noteContentItem)
         val idNotes: TextView = view.findViewById(R.id.idTextView)
-        fun bind() {
-            binding.viewmodel = viewModel
-            binding.executePendingBindings()
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val noteItemBinding = NoteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NoteViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.note_item, parent, false), noteItemBinding
+            .inflate(R.layout.note_item, parent, false)
         )}
 
     override fun getItemCount(): Int {
@@ -37,7 +32,6 @@ class NotesAdapter(private var notes: List<NoteModel>, private val viewModel: No
         holder.titleNotes.text = notes[position].title
         holder.contentNotes.text = notes[position].content
         holder.idNotes.text = notes[position].id.toString()
-        holder.bind()
         val editButton = holder.view.findViewById<ImageView>(R.id.editNoteButton)
         val deleteButton = holder.view.findViewById<ImageView>(R.id.deleteItemButton)
         editButton.setOnClickListener {
@@ -46,7 +40,7 @@ class NotesAdapter(private var notes: List<NoteModel>, private val viewModel: No
             Navigation.findNavController(it).navigate(action)
         }
         deleteButton.setOnClickListener {
-            NoteViewModel().onDeleteNote(it)
+            NoteViewModel().onDeleteNote(it, notes[position].id)
         }
     }
 }

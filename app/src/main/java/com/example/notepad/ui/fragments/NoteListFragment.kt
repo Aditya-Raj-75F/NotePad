@@ -17,44 +17,38 @@ import com.example.notepad.ui.NoteListener
 import com.example.notepad.ui.NoteViewModel
 import com.example.notepad.ui.NotesAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-class NoteListFragment : BaseFragment(), NoteListener {
+class NoteListFragment : BaseFragment() {
     lateinit var viewModel: NoteViewModel
     lateinit var binding: FragmentNoteListBinding
-    lateinit var recyclerView: RecyclerView
+//    lateinit var recyclerView: RecyclerView
+
+    // Called between onCreate and onViewCreated for fragments to instantiate their UI. Inflation occurs here.
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-        binding = DataBindingUtil.inflate<FragmentNoteListBinding>(inflater,R.layout.fragment_note_list, container, false)
+        // returns the view model for this fragment.
+        viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
+        // inflating layouts supporting both view binding and data binding
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_list, container, false)
+        // connecting viewmodel with the binding of the fragment
         binding.viewmodel = viewModel
-        viewModel.noteListener = this
+        // returns the outer most view associated with the binding
         return binding.root
     }
 
+    // called just after onCreateView but before any savedInstanceState has been restored to the view.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById<RecyclerView>(R.id.noteList)
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
-        viewModel.getAllNotes(view)
-        val addNoteButton = view?.findViewById<FloatingActionButton>(R.id.addNoteButton)
-        addNoteButton?.setOnClickListener {
+        // noteList refers to RecyclerView and its layoutManager is set to LinearLayout for holding itemViews
+        binding.noteList.layoutManager = LinearLayoutManager(view.context)
+
+        viewModel.getAllNotes(view).observe(viewLifecycleOwner) { allNotes ->
+            binding.noteList.adapter = NotesAdapter(allNotes)
+        }
+        binding.addNoteButton.setOnClickListener {
             val action = NoteListFragmentDirections.viewToEditNote()
             Navigation.findNavController(it).navigate(action)
         }
-    }
-
-    override fun onStarted(allNotes: List<NoteModel>) {
-        recyclerView.adapter = NotesAdapter(allNotes, viewModel)
-    }
-
-    override fun onSuccess(view: View) {
-        Log.d("USER_TEST","Clicked on onSuccess")
-        Log.d("USER_TEST","${recyclerView.adapter}")
-        recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    override fun onFailure() {
-        TODO("Not yet implemented")
     }
 }

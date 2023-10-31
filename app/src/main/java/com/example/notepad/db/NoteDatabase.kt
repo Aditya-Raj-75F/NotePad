@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
     entities = [NoteModel::class],          // list of tables/entities to be introduced into database
     version = 1                             // current version of the database
 )
-// Abstract class acting as entry point to the database. Room provides implmentation for the abstraction.
+// Abstract class acting as entry point to the database. Room provides implementation for the abstraction.
 abstract class NoteDatabase : RoomDatabase() {
 //    Abstract method to be implemented by Room to retrieve a Data Access Object of Note
     abstract fun getNotesDao(): NoteDao

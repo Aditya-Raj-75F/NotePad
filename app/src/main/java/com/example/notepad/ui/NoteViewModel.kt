@@ -3,10 +3,17 @@ package com.example.notepad.ui
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.notepad.db.NoteModel
 import com.example.notepad.repository.NoteRepository
+import com.example.notepad.ui.fragments.NoteEditableFragment
+import com.example.notepad.ui.fragments.NoteEditableFragmentDirections
 import com.example.notepad.util.Coroutines
+import com.example.notepad.util.NavigationHelper
 
 class NoteViewModel : ViewModel() {
     var id: Int = -1
@@ -19,36 +26,37 @@ class NoteViewModel : ViewModel() {
             id = value?.toIntOrNull() ?: -1 // Use -1 as a default value if the conversion fails
         }
 
-    var noteListener: NoteListener? = null
-
+private val allNotes: MutableLiveData<List<NoteModel>> = MutableLiveData()
     fun onSaveNote(view: View) {
         Log.d("USER_TEST","\nTesting for Results\n")
         Toast.makeText(view.context,"Hello There", Toast.LENGTH_LONG).show()
         Coroutines.main {
             if(id == -1) {
                 Log.d("USER_TEST","\nAdding new note\n")
-                Toast.makeText(view.context,"Adding new Note", Toast.LENGTH_LONG).show()
-                NoteRepository().addNote(view.context, title, content)
-                noteListener?.onSuccess(view)
+                NoteRepository(view.context).addNote(title, content)
             } else {
                 Log.d("USER_TEST","\nUpdating note: $content\n")
-                NoteRepository().updateNote(view.context, id, title, content)
-                noteListener?.onSuccess(view)
+                NoteRepository(view.context).updateNote(id, title, content)
             }
+        }
+        NavigationHelper.switchFragment(view, NoteEditableFragmentDirections.editToViewNote())
+    }
+
+    fun onDeleteNote(view: View, noteId: Int) {
+        Coroutines.main {
+            NoteRepository(view.context).deleteNote(noteId)
         }
     }
 
     fun onDeleteNote(view: View) {
         Coroutines.main {
-            NoteRepository().deleteNote(view.context, id)
+            NoteRepository(view.context).deleteNote(id)
         }
-        noteListener?.onSuccess(view)
+            NavigationHelper.switchFragment(view, NoteEditableFragmentDirections.editToViewNote())
     }
 
-    fun getAllNotes(view: View) {
-                Coroutines.main {
-            noteListener?.onStarted(NoteRepository().getAllNotes(view.context))
-        }
+    fun getAllNotes(view: View): LiveData<List<NoteModel>> {
+        return NoteRepository(view.context).getAllNotes()
     }
     fun loadExistingNoteData(existingNote: NoteModel) {
         id = existingNote.id
