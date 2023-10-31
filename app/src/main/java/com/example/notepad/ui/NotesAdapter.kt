@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notepad.R
-import com.example.notepad.databinding.NoteItemBinding
 import com.example.notepad.db.NoteModel
 import com.example.notepad.ui.fragments.NoteListFragmentDirections
 
@@ -29,18 +28,20 @@ class NotesAdapter(private var notes: List<NoteModel>) : RecyclerView.Adapter<No
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.titleNotes.text = notes[position].title
-        holder.contentNotes.text = notes[position].content
-        holder.idNotes.text = notes[position].id.toString()
+        val latestPosition = itemCount - 1 - position
+        val note = notes[latestPosition]
+        holder.titleNotes.text = note.title
+        holder.contentNotes.text = note.content
+        holder.idNotes.text = note.id.toString()
         val editButton = holder.view.findViewById<ImageView>(R.id.editNoteButton)
         val deleteButton = holder.view.findViewById<ImageView>(R.id.deleteItemButton)
         editButton.setOnClickListener {
             val action = NoteListFragmentDirections.viewToEditNote()
-            action.noteArgs = notes[position]
+            action.noteArgs = note
             Navigation.findNavController(it).navigate(action)
         }
         deleteButton.setOnClickListener {
-            NoteViewModel().onDeleteNote(it, notes[position].id)
+            NoteViewModel().onDeleteNote(it, note.id)
         }
     }
 }

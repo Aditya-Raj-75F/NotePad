@@ -14,17 +14,13 @@ import com.example.notepad.ui.fragments.NoteEditableFragment
 import com.example.notepad.ui.fragments.NoteEditableFragmentDirections
 import com.example.notepad.util.Coroutines
 import com.example.notepad.util.NavigationHelper
+import com.example.notepad.util.confirmDeleteDialog
 
 class NoteViewModel : ViewModel() {
     var id: Int = -1
     var title: String? = null
     var content: String? = null
-    var idString: String? = null
-        set(value) {
-            field = value
-            // Convert the idString to Int and update the id property
-            id = value?.toIntOrNull() ?: -1 // Use -1 as a default value if the conversion fails
-        }
+
 
 private val allNotes: MutableLiveData<List<NoteModel>> = MutableLiveData()
     fun onSaveNote(view: View) {
@@ -43,16 +39,22 @@ private val allNotes: MutableLiveData<List<NoteModel>> = MutableLiveData()
     }
 
     fun onDeleteNote(view: View, noteId: Int) {
-        Coroutines.main {
-            NoteRepository(view.context).deleteNote(noteId)
+        confirmDeleteDialog(view, noteId) {
+            Coroutines.main {
+                NoteRepository(view.context).deleteNote(noteId)
+            }
         }
+
     }
 
     fun onDeleteNote(view: View) {
-        Coroutines.main {
-            NoteRepository(view.context).deleteNote(id)
-        }
+        confirmDeleteDialog(view, id) {
+            Coroutines.main {
+                NoteRepository(view.context).deleteNote(id)
+            }
             NavigationHelper.switchFragment(view, NoteEditableFragmentDirections.editToViewNote())
+        }
+
     }
 
     fun getAllNotes(view: View): LiveData<List<NoteModel>> {
