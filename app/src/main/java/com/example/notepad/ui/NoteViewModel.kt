@@ -1,5 +1,6 @@
 package com.example.notepad.ui
 
+import android.os.Build.VERSION_CODES.M
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.room.Query
 import com.example.notepad.db.NoteModel
 import com.example.notepad.repository.NoteRepository
 import com.example.notepad.ui.fragments.NoteEditableFragment
@@ -39,16 +41,15 @@ private val allNotes: MutableLiveData<List<NoteModel>> = MutableLiveData()
     }
 
     fun onDeleteNote(view: View, noteId: Int) {
-        confirmDeleteDialog(view, noteId) {
+        confirmDeleteDialog(view) {
             Coroutines.main {
                 NoteRepository(view.context).deleteNote(noteId)
             }
         }
-
     }
 
     fun onDeleteNote(view: View) {
-        confirmDeleteDialog(view, id) {
+        confirmDeleteDialog(view) {
             Coroutines.main {
                 NoteRepository(view.context).deleteNote(id)
             }
@@ -59,6 +60,15 @@ private val allNotes: MutableLiveData<List<NoteModel>> = MutableLiveData()
 
     fun getAllNotes(view: View): LiveData<List<NoteModel>> {
         return NoteRepository(view.context).getAllNotes()
+    }
+
+    fun deleteSelectedNotes(view: View, noteIds: List<Int>) {
+        confirmDeleteDialog(view) {
+            Log.d("USER_TEST","ids are = $noteIds")
+            Coroutines.main {
+                NoteRepository(view.context).deleteNotes(noteIds)
+            }
+        }
     }
     fun loadExistingNoteData(existingNote: NoteModel) {
         id = existingNote.id

@@ -45,7 +45,27 @@
                 android:layout_marginTop="14dp"
                 android:backgroundTint="@color/orange"
                 android:clickable="true"
-                android:src="@drawable/baseline_note_add_24" />
+                android:src="@drawable/baseline_note_add_24"
+                android:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/cancelSelectedItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/orange"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/baseline_cancel_24"
+                android:visibility="gone" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/multiSelectMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="14dp"
+                android:backgroundTint="@color/orange"
+                android:visibility="gone"
+                app:srcCompat="@drawable/baseline_delete_24" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

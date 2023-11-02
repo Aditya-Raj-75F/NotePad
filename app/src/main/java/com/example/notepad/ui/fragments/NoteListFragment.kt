@@ -5,21 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.notepad.R
 import com.example.notepad.databinding.FragmentNoteListBinding
-import com.example.notepad.db.NoteModel
-import com.example.notepad.ui.NoteListener
 import com.example.notepad.ui.NoteViewModel
 import com.example.notepad.ui.NotesAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-class NoteListFragment : BaseFragment() {
+
+class NoteListFragment : BaseFragment(){
     lateinit var viewModel: NoteViewModel
     lateinit var binding: FragmentNoteListBinding
+//    lateinit var adapter: List<Int>
 //    lateinit var recyclerView: RecyclerView
 
     // Called between onCreate and onViewCreated for fragments to instantiate their UI. Inflation occurs here.
@@ -45,10 +44,44 @@ class NoteListFragment : BaseFragment() {
 
         viewModel.getAllNotes(view).observe(viewLifecycleOwner) { allNotes ->
             binding.noteList.adapter = NotesAdapter(allNotes)
+            val adapt = binding.noteList.adapter as NotesAdapter
+            Log.d("USER_TEST","Entering observer for main view model")
+            adapt.listEmptyOrNot.observe(viewLifecycleOwner) { presence ->
+                Log.d("USER_TEST", "Observing selection Notes")
+                if (presence) {
+                    binding.addNoteButton.visibility = View.VISIBLE
+                    binding.multiSelectMenuButton.visibility = View.GONE
+                    binding.cancelSelectedItems.visibility = View.GONE
+//                    binding.noteList.findViewById<ImageView>(R.id.deleteItemButton).visibility = View.VISIBLE
+//                    binding.noteList.findViewById<ImageView>(R.id.editNoteButton).visibility = View.VISIBLE
+                    for (i in 0 until binding.noteList.childCount) {
+                        val viewHolder = binding.noteList.findViewHolderForAdapterPosition(i) as NotesAdapter.NoteViewHolder
+                        viewHolder.itemView.findViewById<ImageView>(R.id.deleteItemButton).visibility = View.VISIBLE
+                        viewHolder.itemView.findViewById<ImageView>(R.id.editNoteButton).visibility = View.VISIBLE
+                        viewHolder.itemView.setBackgroundResource(R.color.white)
+                    }
+                } else {
+                    binding.addNoteButton.visibility = View.GONE
+                    binding.multiSelectMenuButton.visibility = View.VISIBLE
+                    binding.cancelSelectedItems.visibility = View.VISIBLE
+                    for (i in 0 until binding.noteList.childCount) {
+                        val viewHolder = binding.noteList.findViewHolderForAdapterPosition(i) as NotesAdapter.NoteViewHolder
+                        viewHolder.itemView.findViewById<ImageView>(R.id.deleteItemButton).visibility = View.GONE
+                        viewHolder.itemView.findViewById<ImageView>(R.id.editNoteButton).visibility = View.GONE
+                    }
+                }
+            }
         }
         binding.addNoteButton.setOnClickListener {
             val action = NoteListFragmentDirections.viewToEditNote()
             Navigation.findNavController(it).navigate(action)
+        }
+        binding.multiSelectMenuButton.setOnClickListener {
+            viewModel.deleteSelectedNotes(view, (binding.noteList.adapter as NotesAdapter).getSelectedItems())
+            (binding.noteList.adapter as NotesAdapter).clearSelection()
+        }
+        binding.cancelSelectedItems.setOnClickListener {
+            (binding.noteList.adapter as NotesAdapter).clearSelection()
         }
     }
 }

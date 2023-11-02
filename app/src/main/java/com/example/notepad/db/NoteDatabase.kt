@@ -31,6 +31,6 @@ abstract class NoteDatabase : RoomDatabase() {
             context.applicationContext,                 // context of global application object with lifecycle separate from current context
             NoteDatabase::class.java,                   // Database reference
             "notedatabase"                        // name of the database
-        ).build()                                       // builds corresponding database
+        ).fallbackToDestructiveMigration().build()      // builds corresponding database
     }
 }

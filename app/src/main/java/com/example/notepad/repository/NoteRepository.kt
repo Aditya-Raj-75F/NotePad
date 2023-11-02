@@ -38,4 +38,8 @@ class NoteRepository(context: Context) {
         val deleteNote = noteDao.getNoteById(id)
         noteDao.deleteNote(deleteNote!!)
     }
+
+    suspend fun deleteNotes(noteIds : List<Int>) {
+        noteDao.deleteNotes(noteIds)
+    }
 }
