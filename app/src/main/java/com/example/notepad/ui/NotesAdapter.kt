@@ -7,23 +7,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notepad.R
 import com.example.notepad.db.NoteModel
 import com.example.notepad.ui.fragments.NoteListFragmentDirections
-import com.example.notepad.util.NoteListViewModel
 
-class NotesAdapter(private var notes: List<NoteModel>) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
+class NotesAdapter() : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
+    private var notes: MutableList<NoteModel> = mutableListOf()
+    private var viewModel: NoteViewModel? = null
     private val selectedNotes = mutableSetOf<Int>()
     val listEmptyOrNot = MutableLiveData<Boolean>()
     inner class NoteViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val titleNotes: TextView = view.findViewById(R.id.noteTitleItem)
         val contentNotes: TextView = view.findViewById(R.id.noteContentItem)
         val idNotes: TextView = view.findViewById(R.id.idTextView)
+    }
+
+    fun setParameters(noteList: List<NoteModel>, viewModelArgs: NoteViewModel) {
+        notes = noteList.toMutableList()
+        viewModel = viewModelArgs
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -60,7 +63,7 @@ class NotesAdapter(private var notes: List<NoteModel>) : RecyclerView.Adapter<No
         }
         deleteButton.setOnClickListener {
             if(selectedNotes.size==0)
-                NoteViewModel().onDeleteNote(it, note.id)
+                viewModel?.onDeleteNote(it, note.id)
         }
     }
 

@@ -75,4 +75,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.0")
 
+    // Kotlin Dependency Injection
+    implementation("org.kodein.di:kodein-di-generic-jvm:6.5.5")
+    implementation("org.kodein.di:kodein-di-framework-android-x:6.5.5")
+
 }

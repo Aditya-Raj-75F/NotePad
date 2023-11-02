@@ -1,20 +1,17 @@
 package com.example.notepad.repository
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.notepad.db.NoteDao
-import com.example.notepad.db.NoteDatabase
 import com.example.notepad.db.NoteModel
 
 // Interacts with the Room database
-class NoteRepository(context: Context) {
-    private val noteDao : NoteDao
+class NoteRepository(private val noteDao : NoteDao) {
+
+//    private val noteDao : NoteDao
     private val allNotes : LiveData<List<NoteModel>>
 
     init {
-        val database = NoteDatabase(context)
-        noteDao = database.getNotesDao()
         allNotes = noteDao.getAllNotes()
     }
     suspend fun addNote(title: String?, content: String?) {
