@@ -9,11 +9,8 @@ import com.example.notepad.db.NoteModel
 class NoteRepository(private val noteDao : NoteDao) {
 
 //    private val noteDao : NoteDao
-    private val allNotes : LiveData<List<NoteModel>>
+    private val allNotes : LiveData<List<NoteModel>> = noteDao.getAllNotes()
 
-    init {
-        allNotes = noteDao.getAllNotes()
-    }
     suspend fun addNote(title: String?, content: String?) {
         val newNote = NoteModel(title, content)
         noteDao.addNote(newNote)

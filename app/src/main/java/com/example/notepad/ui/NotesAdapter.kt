@@ -13,7 +13,7 @@ import com.example.notepad.R
 import com.example.notepad.db.NoteModel
 import com.example.notepad.ui.fragments.NoteListFragmentDirections
 
-class NotesAdapter() : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
+class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
     private var notes: MutableList<NoteModel> = mutableListOf()
     private var viewModel: NoteViewModel? = null
     private val selectedNotes = mutableSetOf<Int>()
@@ -67,7 +67,7 @@ class NotesAdapter() : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
         }
     }
 
-    fun toggleSelection(view: View, position: Int, disable: Boolean? = false) {
+    private fun toggleSelection(view: View, position: Int) {
         val beforeSelection = selectedNotes.isEmpty()
         if(selectedNotes.contains(position)) {
             view.setBackgroundResource(R.color.white)
@@ -88,17 +88,6 @@ class NotesAdapter() : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
     fun clearSelection() {
         selectedNotes.clear()
         listEmptyOrNot.value = true
-        notifyDataSetChanged()
-    }
-
-    // Check if an item is selected
-    fun isItemSelected(position: Int): Boolean {
-        return selectedNotes.contains(position)
-    }
-
-    // Get the count of selected items
-    fun getSelectedItemCount(): Int {
-        return selectedNotes.size
     }
 
     // Get a list of selected items

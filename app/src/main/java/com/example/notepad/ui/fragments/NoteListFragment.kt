@@ -18,14 +18,14 @@ import com.example.notepad.ui.NotesAdapter
 import com.example.notepad.util.NoteViewModelFactory
 
 class NoteListFragment : BaseFragment(){
-    lateinit var binding: FragmentNoteListBinding
+    private lateinit var binding: FragmentNoteListBinding
     private val viewModel: NoteViewModel by viewModels { NoteViewModelFactory(requireContext()) }
     private lateinit var adapter: NotesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // returns the view model for this fragment.
         // inflating layouts supporting both view binding and data binding
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_list, container, false)
@@ -42,7 +42,7 @@ class NoteListFragment : BaseFragment(){
         // noteList refers to RecyclerView and its layoutManager is set to LinearLayout for holding itemViews
         binding.noteList.layoutManager = LinearLayoutManager(view.context)
 
-        viewModel.getAllNotes(view).observe(viewLifecycleOwner) { allNotes ->
+        viewModel.getAllNotes().observe(viewLifecycleOwner) { allNotes ->
             adapter.setParameters(allNotes, viewModel)
             binding.noteList.adapter = adapter
             val adapt = binding.noteList.adapter as NotesAdapter

@@ -2,16 +2,10 @@ package com.example.notepad
 
 import android.app.Application
 import android.content.Context
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.example.notepad.db.NoteDao
 import com.example.notepad.db.NoteDatabase
 import com.example.notepad.repository.NoteRepository
-import com.example.notepad.ui.NoteViewModel
 import com.example.notepad.ui.NotesAdapter
-import com.example.notepad.util.NoteViewModelFactory
 
 class AppContainer(context: Context) {
     private val noteDatabase : NoteDatabase = NoteDatabase(context)

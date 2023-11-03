@@ -1,21 +1,13 @@
 package com.example.notepad.ui
 
 import android.content.Context
-import android.os.Build.VERSION_CODES.M
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.room.Query
-import com.example.notepad.AppContainer
 import com.example.notepad.NotepadApplication
 import com.example.notepad.db.NoteModel
 import com.example.notepad.repository.NoteRepository
-import com.example.notepad.ui.fragments.NoteEditableFragment
 import com.example.notepad.ui.fragments.NoteEditableFragmentDirections
 import com.example.notepad.util.Coroutines
 import com.example.notepad.util.NavigationHelper
@@ -62,7 +54,7 @@ class NoteViewModel(appContext: Context) : ViewModel() {
 
     }
 
-    fun getAllNotes(view: View): LiveData<List<NoteModel>> {
+    fun getAllNotes(): LiveData<List<NoteModel>> {
         return noteRepository.getAllNotes()
     }
 

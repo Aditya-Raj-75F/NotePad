@@ -15,7 +15,7 @@ import com.example.notepad.util.NoteViewModelFactory
 class NoteEditableFragment : BaseFragment() {
 
     private var note : NoteModel? = null
-    lateinit var binding: FragmentNoteEditableBinding
+    private lateinit var binding: FragmentNoteEditableBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +27,16 @@ class NoteEditableFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val viewModel: NoteViewModel by viewModels { NoteViewModelFactory(requireContext()) }
         if(note!=null)
             viewModel.loadExistingNoteData(note!!)
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_editable, container, false)
         binding.viewmodel = viewModel
+        if(viewModel.id!=-1) {
+            binding.addOrUpdateNote.text = getString(R.string.edit_note)
+        }
         return binding.root
     }
 }
