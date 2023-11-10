@@ -30,10 +30,19 @@ class NoteRepository(private val noteDao : NoteDao) {
         Log.d("USER_TEST","Entering Delete method with ID: $id")
         if(id==-1) return
         val deleteNote = noteDao.getNoteById(id)
+        Log.d("USER_TEST","Note to be deleted = ${noteDao.getAllNotes().value}")
         noteDao.deleteNote(deleteNote!!)
     }
 
     suspend fun deleteNotes(noteIds : List<Int>) {
         noteDao.deleteNotes(noteIds)
+    }
+
+    suspend fun getNoteById(noteId: Int) : NoteModel? {
+        return noteDao.getNoteById(noteId)
+    }
+
+    suspend fun deleteAllNotes() {
+        return noteDao.deleteAllNotes()
     }
 }

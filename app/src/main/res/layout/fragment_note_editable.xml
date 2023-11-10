@@ -11,7 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.NoteEditableFragment">
+        tools:context=".ui.fragments.NoteEditableFragment"
+        android:id="@+id/addOrModifyNoteLayout">
 
         <LinearLayout
             android:id="@+id/header"
@@ -23,31 +24,32 @@
 
             <TextView
                 android:id="@+id/addOrUpdateNote"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/poppins"
                 android:text="@string/add_note"
                 android:textColor="@color/orange"
                 android:textSize="34sp"
                 android:textStyle="bold"
-                android:layout_weight="1"/>
+                tools:ignore="TextContrastCheck" />
 
             <ImageView
                 android:id="@+id/saveNoteButton"
-                android:onClick="@{viewmodel::onSaveNote}"
                 android:layout_width="51dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="3dp"
-                android:src="@drawable/baseline_done_24" />
+                android:onClick="@{viewmodel::onSaveNote}"
+                android:src="@drawable/baseline_done_24"
+                tools:ignore="ImageContrastCheck" />
 
         </LinearLayout>
 
         <EditText
             android:id="@+id/editTitle"
-            android:text="@={viewmodel.title}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
@@ -57,11 +59,12 @@
             android:hint="@string/note_title_hint"
             android:inputType="text"
             android:padding="10dp"
-            android:textSize="24sp" />
+            android:text="@={viewmodel.title}"
+            android:textSize="24sp"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/editContent"
-            android:text="@={viewmodel.content}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/editTitle"
@@ -71,7 +74,9 @@
             android:gravity="start|top"
             android:hint="@string/note_content_hint"
             android:inputType="textMultiLine"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:text="@={viewmodel.content}"
+            tools:ignore="TextContrastCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteButton"
@@ -84,7 +89,9 @@
             android:layout_marginBottom="30dp"
             android:clickable="true"
             android:backgroundTint="@color/orange"
-            android:src="@drawable/baseline_delete_24" />
+            android:src="@drawable/baseline_delete_24"
+            android:contentDescription="Delete Note"
+            android:focusable="true" />
 
     </RelativeLayout>
 </layout>

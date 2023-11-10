@@ -22,4 +22,6 @@ interface NoteDao {
     suspend fun getNoteById(noteId: Int): NoteModel?
     @Query("DELETE FROM note WHERE id IN (:noteIds)")
     suspend fun deleteNotes(noteIds: List<Int>)
+    @Query("DELETE FROM note WHERE id < 999")
+    suspend fun deleteAllNotes()
 }

@@ -1,7 +1,6 @@
 package com.example.notepad.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,9 +45,7 @@ class NoteListFragment : BaseFragment(){
             adapter.setParameters(allNotes, viewModel)
             binding.noteList.adapter = adapter
             val adapt = binding.noteList.adapter as NotesAdapter
-            Log.d("USER_TEST","Entering observer for main view model")
             adapt.listEmptyOrNot.observe(viewLifecycleOwner) { presence ->
-                Log.d("USER_TEST", "Observing selection Notes")
                 if (presence) {
                     binding.addNoteButton.visibility = View.VISIBLE
                     binding.multiSelectMenuButton.visibility = View.GONE
@@ -76,11 +73,11 @@ class NoteListFragment : BaseFragment(){
             Navigation.findNavController(it).navigate(action)
         }
         binding.multiSelectMenuButton.setOnClickListener {
-            viewModel.deleteSelectedNotes(view, (binding.noteList.adapter as NotesAdapter).getSelectedItems())
-            (binding.noteList.adapter as NotesAdapter).clearSelection()
+            viewModel.deleteSelectedNotes(view, adapter.getSelectedItems())
+            adapter.clearSelection()
         }
         binding.cancelSelectedItems.setOnClickListener {
-            (binding.noteList.adapter as NotesAdapter).clearSelection()
+            adapter.clearSelection()
         }
     }
 }

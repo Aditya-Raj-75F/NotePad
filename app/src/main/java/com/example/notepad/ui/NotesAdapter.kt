@@ -54,17 +54,20 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
                 toggleSelection(it, latestPosition)
             true
         }
-        editButton.setOnClickListener {
-            if(selectedNotes.size==0) {
-                val action = NoteListFragmentDirections.viewToEditNote()
-                action.noteArgs = note
-                Navigation.findNavController(it).navigate(action)
+        selectedNotes.takeIf { it.isNotEmpty() }.run {
+            editButton.setOnClickListener {
+//                if(selectedNotes.size==0) {
+                    val action = NoteListFragmentDirections.viewToEditNote()
+                    action.noteArgs = note
+                    Navigation.findNavController(it).navigate(action)
+//                }
+            }
+            deleteButton.setOnClickListener {
+//                if(selectedNotes.size==0)
+                    viewModel?.onDeleteNote(it, note.id)
             }
         }
-        deleteButton.setOnClickListener {
-            if(selectedNotes.size==0)
-                viewModel?.onDeleteNote(it, note.id)
-        }
+
     }
 
     private fun toggleSelection(view: View, position: Int) {

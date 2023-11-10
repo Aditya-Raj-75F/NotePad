@@ -8,4 +8,9 @@ plugins {
 
     // Plugin for ksp annotation processor
     id("com.google.devtools.ksp") version "1.9.0-1.0.13" apply false
+
+    // Tests
+    id("de.mannodermaus.android-junit5") version "1.10.0.0" apply false
+
+    id("jacoco")
 }
