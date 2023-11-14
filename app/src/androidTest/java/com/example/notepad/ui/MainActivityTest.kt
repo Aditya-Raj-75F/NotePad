@@ -58,7 +58,7 @@ class MainActivityTest {
             }
             recyclerView.adapter = adapter
         }
-    Thread.sleep(2000)
+    Thread.sleep(1000)
     }
 
     @AfterEach
@@ -288,7 +288,7 @@ class MainActivityTest {
                 withId(R.id.noteTitleItem),
                 withText("Aditya")
             ))
-        )).perform(longClick());
+        )).perform(click());
         onView(withId(R.id.multiSelectMenuButton)).check(matches(not(isDisplayed())))
         onView(withId(R.id.addNoteButton)).check(matches(isDisplayed()))
     }
@@ -340,6 +340,7 @@ class MainActivityTest {
         )).perform(click());
         onView(withId(R.id.multiSelectMenuButton)).perform(click())
         onView(withText("Delete Confirmation")).check(matches(isDisplayed()))
+        onView(withText("Yes")).check(matches(isDisplayed())).perform(click())
     }
 
     @Test
@@ -366,6 +367,7 @@ class MainActivityTest {
         onView(withId(R.id.multiSelectMenuButton)).perform(click())
         onView(withText("Delete Confirmation")).check(matches(isDisplayed()))
         onView(withText("No")).check(matches(isDisplayed())).perform(click())
+        onView(withId(R.id.cancelSelectedItems)).check(matches(isDisplayed())).perform(click())
         onView(allOf(
             withId(R.id.noteItem),
             isDescendantOfA(withId(R.id.noteList)),
@@ -424,6 +426,7 @@ class MainActivityTest {
                 withText("Hello")
             ))
         )).check(doesNotExist())
+//        Thread.sleep(2000)
     }
 
     @Test

@@ -15,6 +15,7 @@ import com.example.notepad.databinding.FragmentNoteListBinding
 import com.example.notepad.ui.NoteViewModel
 import com.example.notepad.ui.NotesAdapter
 import com.example.notepad.util.NoteViewModelFactory
+import com.example.notepad.util.confirmDeleteDialog
 
 class NoteListFragment : BaseFragment(){
     private lateinit var binding: FragmentNoteListBinding
@@ -73,8 +74,8 @@ class NoteListFragment : BaseFragment(){
             Navigation.findNavController(it).navigate(action)
         }
         binding.multiSelectMenuButton.setOnClickListener {
-            viewModel.deleteSelectedNotes(view, adapter.getSelectedItems())
-            adapter.clearSelection()
+            confirmDeleteDialog(it, {viewModel.deleteSelectedNotes(adapter.getSelectedItems())
+                adapter.clearSelection()})
         }
         binding.cancelSelectedItems.setOnClickListener {
             adapter.clearSelection()

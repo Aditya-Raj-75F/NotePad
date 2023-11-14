@@ -2,19 +2,16 @@ package com.example.notepad.db
 
 import android.content.Context
 import android.util.Log
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.example.notepad.ui.testUtils.getOrAwaitValue
 import com.example.notepad.util.Coroutines
 import kotlinx.coroutines.test.runTest
-import org.junit.Rule
-import org.junit.jupiter.api.*
-    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
     class NoteDaoTest {
-
-        @get: Rule
-        val instantExecutorRule = InstantTaskExecutorRule()
 
         private lateinit var noteDao: NoteDao
         private lateinit var db: TestNoteDatabase

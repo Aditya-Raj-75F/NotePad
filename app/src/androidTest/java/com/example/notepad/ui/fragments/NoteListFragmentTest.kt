@@ -21,6 +21,7 @@ class NoteListFragmentTest {
         scenario = launchFragmentInContainer(
             themeResId = R.style.Theme_NotePad
         )
+        Thread.sleep(2000)
     }
 
     @Nested

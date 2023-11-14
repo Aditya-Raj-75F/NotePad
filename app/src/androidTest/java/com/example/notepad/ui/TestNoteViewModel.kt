@@ -1,7 +1,6 @@
 package com.example.notepad.ui
 
 import android.content.Context
-import android.view.View
 import com.example.notepad.EspressoIdlingResource
 import com.example.notepad.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
@@ -24,27 +23,27 @@ class TestNoteViewModel(test_noteRepository: NoteRepository, appContext: Context
         EspressoIdlingResource.decrement()
     }
 
-    override fun onSaveNote(view: View) {
+    override fun onSaveNote() {
         EspressoIdlingResource.increment()
-        super.onSaveNote(view)
+        super.onSaveNote()
         EspressoIdlingResource.decrement()
     }
 
-    override fun onDeleteNote(view: View, noteId: Int) {
+    override fun onDeleteNote(noteId: Int) {
         EspressoIdlingResource.increment()
-        super.onDeleteNote(view, noteId)
+        super.onDeleteNote(noteId)
         EspressoIdlingResource.decrement()
     }
 
-    override fun onDeleteNote(view: View) {
+    override fun onDeleteNote() {
         EspressoIdlingResource.increment()
-        super.onDeleteNote(view)
+        super.onDeleteNote()
         EspressoIdlingResource.decrement()
     }
 
-    override fun deleteSelectedNotes(view: View, noteIds: List<Int>) {
+    override fun deleteSelectedNotes(noteIds: List<Int>) {
         EspressoIdlingResource.increment()
-        super.deleteSelectedNotes(view, noteIds)
+        super.deleteSelectedNotes(noteIds)
         EspressoIdlingResource.decrement()
     }
 }

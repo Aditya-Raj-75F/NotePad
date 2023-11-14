@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notepad.R
 import com.example.notepad.db.NoteModel
 import com.example.notepad.ui.fragments.NoteListFragmentDirections
+import com.example.notepad.util.confirmDeleteDialog
 
 class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
     private var notes: MutableList<NoteModel> = mutableListOf()
@@ -56,15 +57,12 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
         }
         selectedNotes.takeIf { it.isNotEmpty() }.run {
             editButton.setOnClickListener {
-//                if(selectedNotes.size==0) {
                     val action = NoteListFragmentDirections.viewToEditNote()
                     action.noteArgs = note
                     Navigation.findNavController(it).navigate(action)
-//                }
             }
             deleteButton.setOnClickListener {
-//                if(selectedNotes.size==0)
-                    viewModel?.onDeleteNote(it, note.id)
+                confirmDeleteDialog(it) { viewModel?.onDeleteNote(note.id) }
             }
         }
 

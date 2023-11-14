@@ -138,18 +138,46 @@ dependencies {
     testImplementation("androidx.navigation:navigation-testing:2.7.4")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
     testImplementation("androidx.test:core-ktx:1.5.0")
-    testImplementation("org.mockito:mockito-core:5.7.0")
+    androidTestImplementation("org.mockito:mockito-core:5.7.0")
+    androidTestImplementation("org.mockito:mockito-android:5.7.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 }
-tasks.withType<Test> {
-    useJUnitPlatform()
-    maxParallelForks = 1
-}
+//tasks.withType<Test> {
+//    useJUnitPlatform()
+//    maxParallelForks = 1
+//}
+//
+//tasks.register<JacocoReport>("jacocoTestReport")  {
+//    dependsOn("testDebugUnitTest", "createDebugCoverageReport")
+//    reports {
+//        xml.required.set(true)
+//        html.required.set(true)
+//        html.outputLocation.set(file("$buildDir/reports/jacoco/html"))
+//    }
+//
+//    val fileFilter = listOf(
+//        "**/R.class",
+//        "**/R$*.class",
+//        "**/BuildConfig.*",
+//        "**/Manifest*.*",
+//        "**/*Test*.*",
+//        "android/**/*.*"
+//    )
+//    val debugTree = fileTree(mapOf("dir" to "${project.buildDir}/intermediates/classes/debug", "excludes" to fileFilter))
+//    val mainSrc = "${project.projectDir}/src/main/java"
+//    sourceDirectories.setFrom(files(mainSrc))
+//    classDirectories.setFrom(files(debugTree))
+//    executionData.setFrom(fileTree(mapOf("dir" to buildDir, "includes" to listOf(
+//        "jacoco/testDebugUnitTest.exec",
+//        "outputs/code-coverage/connected/*coverage.ec"
+//    ))))
+//}
 
-tasks.register<JacocoReport>("jacocoTestReport")  {
+tasks.register<JacocoReport>("jacocoTestReport") {
     dependsOn("testDebugUnitTest", "createDebugCoverageReport")
+
     reports {
         xml.required.set(true)
         html.required.set(true)
@@ -162,14 +190,22 @@ tasks.register<JacocoReport>("jacocoTestReport")  {
         "**/BuildConfig.*",
         "**/Manifest*.*",
         "**/*Test*.*",
-        "android/**/*.*"
+        "**/databinding/*.class"
     )
+
     val debugTree = fileTree(mapOf("dir" to "${project.buildDir}/intermediates/classes/debug", "excludes" to fileFilter))
+
+    // Update source directories to include only your main source code
     val mainSrc = "${project.projectDir}/src/main/java"
     sourceDirectories.setFrom(files(mainSrc))
+
+    // Update class directories to use the filtered debugTree
     classDirectories.setFrom(files(debugTree))
+
+    // Update execution data to include the necessary JaCoCo exec files
     executionData.setFrom(fileTree(mapOf("dir" to buildDir, "includes" to listOf(
         "jacoco/testDebugUnitTest.exec",
         "outputs/code-coverage/connected/*coverage.ec"
     ))))
 }
+

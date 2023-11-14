@@ -4,10 +4,13 @@ import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.example.notepad.NotepadApplication
+import com.example.notepad.R
 import com.example.notepad.db.NoteModel
 import com.example.notepad.db.TestNoteDatabase
 import com.example.notepad.repository.NoteRepository
 import com.example.notepad.ui.testUtils.getOrAwaitValue
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -46,11 +49,12 @@ class NoteViewModelTest {
 
     @Test
     @Disabled
-    fun deleteSelectedNotesTest() = runTest {
+    fun deleteSelectedNotesTest() = runTest{
         noteRepository.addNote("Hello", "Nice to meet you all")
         noteRepository.addNote("Hi Guys", "What a nice day.")
         noteRepository.addNote("Bye everybody", "Stay safe")
-        noteViewModel.deleteSelectedNotes(view, listOf(1,3))
+        noteViewModel.deleteSelectedNotes(listOf(1,3))
+        delay(5000)
         assertEquals(1, noteRepository.getAllNotes().getOrAwaitValue().size) {"All specified notes were not deleted"}
     }
 
@@ -62,5 +66,18 @@ class NoteViewModelTest {
         assertEquals(3, noteViewModel.id) {"id not updated"}
         assertEquals("Hello Man", noteViewModel.title) {"title not updated"}
         assertEquals("Long time no see", noteViewModel.content) {"content not updated"}
+    }
+
+    @Test
+    fun testApplicationContextCast() {
+        // Arrange
+        val appContext: Context = noteViewModel.context
+
+        // Act
+        val context = appContext.applicationContext as NotepadApplication
+
+        // Assert
+        assertEquals("NotePad", context.getString(R.string.app_name), "Notepad")
+        // Add more assertions as needed
     }
 }

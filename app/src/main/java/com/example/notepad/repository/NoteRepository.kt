@@ -6,7 +6,7 @@ import com.example.notepad.db.NoteDao
 import com.example.notepad.db.NoteModel
 
 // Interacts with the Room database
-class NoteRepository(private val noteDao : NoteDao) {
+open class NoteRepository(private val noteDao : NoteDao) {
 
 //    private val noteDao : NoteDao
     private val allNotes : LiveData<List<NoteModel>> = noteDao.getAllNotes()

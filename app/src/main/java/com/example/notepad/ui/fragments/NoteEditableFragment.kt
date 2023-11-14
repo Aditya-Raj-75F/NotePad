@@ -10,7 +10,9 @@ import com.example.notepad.R
 import com.example.notepad.databinding.FragmentNoteEditableBinding
 import com.example.notepad.db.NoteModel
 import com.example.notepad.ui.NoteViewModel
+import com.example.notepad.util.NavigationHelper
 import com.example.notepad.util.NoteViewModelFactory
+import com.example.notepad.util.confirmDeleteDialog
 
 class NoteEditableFragment : BaseFragment() {
 
@@ -36,6 +38,16 @@ class NoteEditableFragment : BaseFragment() {
         binding.viewmodel = viewModel
         if(viewModel.id!=-1) {
             binding.addOrUpdateNote.text = getString(R.string.edit_note)
+        }
+        binding.saveNoteButton.setOnClickListener {
+            viewModel.onSaveNote()
+                    NavigationHelper.switchFragment(it, NoteEditableFragmentDirections.editToViewNote())
+        }
+        binding.deleteButton.setOnClickListener {
+            confirmDeleteDialog(it) {
+                viewModel.onDeleteNote()
+                NavigationHelper.switchFragment(it, NoteEditableFragmentDirections.editToViewNote())
+            }
         }
         return binding.root
     }
