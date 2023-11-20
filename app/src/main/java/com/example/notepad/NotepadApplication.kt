@@ -16,6 +16,7 @@ class AppContainer(context: Context) {
 
 class NotepadApplication : Application() {
     lateinit var appContainer: AppContainer
+    lateinit var context: Context
 
     override fun onCreate() {
         super.onCreate()

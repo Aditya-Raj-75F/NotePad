@@ -16,7 +16,7 @@ abstract class NoteDatabase : RoomDatabase() {
 // singleton patern ensuring that there is only instance of DB throughout the application
     companion object {
 //        readily available instance of database to all threads
-        @Volatile private var instance : NoteDatabase? = null
+        @Volatile var instance : NoteDatabase? = null
 //    An object to support synchronization and avoid building of multiple database
         private val LOCK = Any()
 

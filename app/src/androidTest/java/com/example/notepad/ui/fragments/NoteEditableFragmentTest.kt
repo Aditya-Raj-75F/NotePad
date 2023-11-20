@@ -1,5 +1,7 @@
 package com.example.notepad.ui.fragments
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.GradientDrawable
 import android.text.InputType
 import android.util.Log
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
@@ -127,13 +130,16 @@ class NoteEditableFragmentTest {
                             return false
                         }
                         val backgroundDrawable = item.background
-                        val expectedDrawable = ContextCompat.getDrawable(item.context, R.drawable.border)
-                        return backgroundDrawable.constantState == expectedDrawable?.constantState
+//                        val expectedDrawable = ContextCompat.getDrawable(item.context, R.drawable.border)
+                        val expectedDrawableTrue = createBackgroundShape(ContextCompat.getColor(ApplicationProvider.getApplicationContext(),R.color.white))
+                        val expectedDrawableFalse = createBackgroundShape(ContextCompat.getColor(ApplicationProvider.getApplicationContext(),R.color.orange))
+                        var bgDrawable = backgroundDrawable as GradientDrawable
+                        return bgDrawable.color == expectedDrawableTrue.color && bgDrawable.color != expectedDrawableFalse.color
+//                        return backgroundDrawable == expectedDrawable?.constantState
                     }
 
                     override fun describeTo(description: Description?) {
                         description?.appendText("with background drawable")
-                        description?.appendValue(R.drawable.border)
                     }
                 }))
         }
@@ -147,13 +153,14 @@ class NoteEditableFragmentTest {
                             return false
                         }
                         val backgroundDrawable = item.background
-                        val expectedDrawable = ContextCompat.getDrawable(item.context, R.drawable.border)
-                        return backgroundDrawable.constantState == expectedDrawable?.constantState
+                        val expectedDrawableTrue = createBackgroundShape(ContextCompat.getColor(ApplicationProvider.getApplicationContext(),R.color.white))
+                        val expectedDrawableFalse = createBackgroundShape(ContextCompat.getColor(ApplicationProvider.getApplicationContext(),R.color.orange))
+                        var bgDrawable = backgroundDrawable as GradientDrawable
+                        return bgDrawable.color == expectedDrawableTrue.color && bgDrawable.color != expectedDrawableFalse.color
                     }
 
                     override fun describeTo(description: Description?) {
                         description?.appendText("with background drawable")
-                        description?.appendValue(R.drawable.border)
                     }
                 }))
         }
@@ -212,5 +219,15 @@ class NoteEditableFragmentTest {
         }
 
 
+    }
+
+    @SuppressLint("ResourceAsColor")
+    fun createBackgroundShape(color: Int): GradientDrawable {
+        val gradientDrawable = GradientDrawable()
+        gradientDrawable.shape = GradientDrawable.RECTANGLE
+        gradientDrawable.setColor(color)
+        gradientDrawable.cornerRadius = 8F
+        gradientDrawable.setStroke(2, ContextCompat.getColor(ApplicationProvider.getApplicationContext(), R.color.orange))
+        return gradientDrawable
     }
 }

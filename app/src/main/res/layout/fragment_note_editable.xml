@@ -2,17 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewmodel"
-            type="com.example.notepad.ui.NoteViewModel"
-            />
+            type="com.example.notepad.ui.NoteViewModel" />
     </data>
+
     <RelativeLayout
+        android:id="@+id/addOrModifyNoteLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.NoteEditableFragment"
-        android:id="@+id/addOrModifyNoteLayout">
+        android:background="@color/white"
+        tools:context=".ui.fragments.NoteEditableFragment">
 
         <LinearLayout
             android:id="@+id/header"
@@ -35,6 +38,18 @@
                 android:textSize="34sp"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck" />
+
+            <Spinner
+                android:id="@+id/colorSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/circular_background"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/saveNoteButton"
@@ -85,11 +100,11 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
-            android:clickable="true"
             android:backgroundTint="@color/orange"
-            android:src="@drawable/baseline_delete_24"
+            android:clickable="true"
             android:contentDescription="Delete Note"
-            android:focusable="true" />
+            android:focusable="true"
+            android:src="@drawable/baseline_delete_24" />
 
     </RelativeLayout>
 </layout>

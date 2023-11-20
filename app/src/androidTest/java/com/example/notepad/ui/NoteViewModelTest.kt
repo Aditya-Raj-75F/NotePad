@@ -50,9 +50,9 @@ class NoteViewModelTest {
     @Test
     @Disabled
     fun deleteSelectedNotesTest() = runTest{
-        noteRepository.addNote("Hello", "Nice to meet you all")
-        noteRepository.addNote("Hi Guys", "What a nice day.")
-        noteRepository.addNote("Bye everybody", "Stay safe")
+        noteRepository.addNote("Hello", "Nice to meet you all", 0xFFFFFF)
+        noteRepository.addNote("Hi Guys", "What a nice day.", 0xFFFFFF)
+        noteRepository.addNote("Bye everybody", "Stay safe", 0xFFFFFF)
         noteViewModel.deleteSelectedNotes(listOf(1,3))
         delay(5000)
         assertEquals(1, noteRepository.getAllNotes().getOrAwaitValue().size) {"All specified notes were not deleted"}

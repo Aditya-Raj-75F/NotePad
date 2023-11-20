@@ -1,11 +1,16 @@
 package com.example.notepad.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +50,7 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
         holder.titleNotes.text = note.title
         holder.contentNotes.text = note.content
         holder.idNotes.text = note.id.toString()
+        holder.view.findViewById<LinearLayout>(R.id.noteCardItem).background = createBackgroundShape(holder.view.context, note.noteColor?:R.color.white)
         val editButton = holder.view.findViewById<ImageView>(R.id.editNoteButton)
         val deleteButton = holder.view.findViewById<ImageView>(R.id.deleteItemButton)
         holder.view.setOnClickListener {
@@ -96,4 +102,13 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(){
         return selectedNotes.toList().mapNotNull { notes.getOrNull(it)?.id } // return type = List<NoteModel>
     }
 
+    @SuppressLint("ResourceAsColor")
+    fun createBackgroundShape(context: Context, color: Int): GradientDrawable {
+        val gradientDrawable = GradientDrawable()
+        gradientDrawable.shape = GradientDrawable.RECTANGLE
+        gradientDrawable.setColor(color)
+        gradientDrawable.cornerRadius = 8F
+        gradientDrawable.setStroke(2, ContextCompat.getColor(context, R.color.orange))
+        return gradientDrawable
+    }
 }

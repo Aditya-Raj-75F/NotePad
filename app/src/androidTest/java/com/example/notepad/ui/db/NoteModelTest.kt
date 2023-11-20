@@ -13,20 +13,20 @@ class NoteModelTest {
         private lateinit var noteActual : NoteModel
         @BeforeEach
         fun init() {
-            noteActual = NoteModel("Hello World", "It is nice to meet you.")
+            noteActual = NoteModel("Hello World", "It is nice to meet you.", 0xFFFFFF)
         }
 
         @Test
         @DisplayName("Note instance equality")
         fun testNoteEquality() {
-            val noteExpected = NoteModel("Hello World", "It is nice to meet you.")
+            val noteExpected = NoteModel("Hello World", "It is nice to meet you.", 0xFFFFFF)
             assertEquals(noteExpected, noteActual) { "Notes Instance should have their properties matched." }
         }
 
         @Test
         @DisplayName("Note instance inequality")
         fun testNoteInequality() {
-            val noteExpected = NoteModel("Hello World", "I am honored to address you all today.")
+            val noteExpected = NoteModel("Hello World", "I am honored to address you all today.", 0xFFFFFF)
             assertNotEquals(noteExpected, noteActual) { "Notes instances should have different property values." }
         }
 

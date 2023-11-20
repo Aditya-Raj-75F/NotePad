@@ -357,6 +357,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-374110438">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="motorola moto e(7) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-285741088">
           <value>
             <AndroidTestResultsTableState>
@@ -723,6 +736,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="1378194642">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="motorola moto e(7) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="1379944339">
           <value>
             <AndroidTestResultsTableState>
@@ -763,6 +789,19 @@
           </value>
         </entry>
         <entry key="1435616735">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="motorola moto e(7) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1457740534">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
@@ -828,6 +867,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="1598436896">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="motorola moto e(7) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="1649567922">
           <value>
             <AndroidTestResultsTableState>
@@ -837,6 +889,19 @@
                   <entry key="Tests" value="360" />
                   <entry key="motorola moto e(7) plus" value="120" />
                   <entry key="rockchip rk3588_s" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1697397171">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="motorola moto e(7) plus" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -856,6 +921,19 @@
           </value>
         </entry>
         <entry key="1880101098">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="motorola moto e(7) plus" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1884704737">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">

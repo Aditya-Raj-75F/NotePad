@@ -11,17 +11,17 @@ open class NoteRepository(private val noteDao : NoteDao) {
 //    private val noteDao : NoteDao
     private val allNotes : LiveData<List<NoteModel>> = noteDao.getAllNotes()
 
-    suspend fun addNote(title: String?, content: String?) {
-        val newNote = NoteModel(title, content)
+    suspend fun addNote(title: String?, content: String?, color: Int?) {
+        val newNote = NoteModel(title, content, color)
         noteDao.addNote(newNote)
     }
 
     fun getAllNotes() : LiveData<List<NoteModel>>{
-        return allNotes
+        return allNotes ?: noteDao.getAllNotes()
     }
 
-    suspend fun updateNote(id: Int, title: String?, content: String?) {
-        val updatedNote = NoteModel(title, content)
+    suspend fun updateNote(id: Int, title: String?, content: String?, color: Int?) {
+        val updatedNote = NoteModel(title, content, color)
         updatedNote.id = id
         noteDao.updateNote(updatedNote)
     }
@@ -30,7 +30,6 @@ open class NoteRepository(private val noteDao : NoteDao) {
         Log.d("USER_TEST","Entering Delete method with ID: $id")
         if(id==-1) return
         val deleteNote = noteDao.getNoteById(id)
-        Log.d("USER_TEST","Note to be deleted = ${noteDao.getAllNotes().value}")
         noteDao.deleteNote(deleteNote!!)
     }
 

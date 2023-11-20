@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test
 
         @Test
         fun insertAndGetAllNotes() = runTest {
-            val note = NoteModel(title = "Test Note", content = "This is a test note")
+            val note = NoteModel(title = "Test Note", content = "This is a test note", 0xFFFFFF)
             Log.d("USER_TEST","DB check: ${db}, ${db.isOpen}")
 
             noteDao.addNote(note)
@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test
 
         @Test
         fun insertAndDeleteNote() = runTest {
-            val note = NoteModel(title = "Test Note", content = "This is a test note")
+            val note = NoteModel(title = "Test Note", content = "This is a test note", 0xFFFFFF)
             noteDao.addNote(note)
             note.id = 1
             db.runInTransaction {
@@ -54,8 +54,8 @@ import org.junit.jupiter.api.Test
 
         @Test
         fun findElementByIdTest() = runTest {
-            val note1 = NoteModel("Aditya Raj", "Hello Everybody")
-            val note2 = NoteModel("Abdulla Yusuf", "Good morning everyone")
+            val note1 = NoteModel("Aditya Raj", "Hello Everybody", 0xFFFFFF)
+            val note2 = NoteModel("Abdulla Yusuf", "Good morning everyone", 0xFFFFFF)
             noteDao.addNote(note1)
             noteDao.addNote(note2)
             Assertions.assertEquals(note2, noteDao.getNoteById(2)) {"The position of the note inserted is not matching."}
@@ -63,7 +63,7 @@ import org.junit.jupiter.api.Test
 
         @Test
         fun updateNote() = runTest{
-            val note = NoteModel(title = "Test Note", content = "This is a test note")
+            val note = NoteModel(title = "Test Note", content = "This is a test note", 0xFFFFFF)
             noteDao.addNote(note)
             val updatedNote = note.copy(title = "Updated Note", content = "This is an updated note")
             updatedNote.id = 1
@@ -75,9 +75,9 @@ import org.junit.jupiter.api.Test
 
         @Test
         fun deleteMultipleNotesTest() = runTest {
-            val note1 = NoteModel(title = "Test Note", content = "This is a test note")
-            val note2 = NoteModel("Aditya Raj", "Hello Everybody")
-            val note3 = NoteModel("Abdulla Yusuf", "Good morning everyone")
+            val note1 = NoteModel(title = "Test Note", content = "This is a test note", 0xFFFFFF)
+            val note2 = NoteModel("Aditya Raj", "Hello Everybody", 0xFFFFFF)
+            val note3 = NoteModel("Abdulla Yusuf", "Good morning everyone", 0xFFFFFF)
             noteDao.addNote(note1)
             noteDao.addNote(note2)
             noteDao.addNote(note3)

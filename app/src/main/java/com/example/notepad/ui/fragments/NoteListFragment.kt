@@ -30,7 +30,7 @@ class NoteListFragment : BaseFragment(){
         // inflating layouts supporting both view binding and data binding
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_list, container, false)
         // connecting viewmodel with the binding of the fragment
-        binding.viewmodel = viewModel
+        binding?.viewmodel = viewModel
         // returns the outer most view associated with the binding
         return binding.root
     }
@@ -38,6 +38,7 @@ class NoteListFragment : BaseFragment(){
     // called just after onCreateView but before any savedInstanceState has been restored to the view.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         adapter= (requireContext().applicationContext as NotepadApplication).appContainer.notesAdapter
         // noteList refers to RecyclerView and its layoutManager is set to LinearLayout for holding itemViews
         binding.noteList.layoutManager = LinearLayoutManager(view.context)

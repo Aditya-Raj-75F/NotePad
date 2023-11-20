@@ -32,40 +32,40 @@ class NoteRepositoryTest {
     @Test
     @DisplayName("Inserting New Note and Fetching that note")
     fun addAndFetchNoteTest() = runTest{
-        noteRepository.addNote(title, content)
-        assertEquals(NoteModel(title, content), noteRepository.getAllNotes().getOrAwaitValue()[0]) {"Note details are not matching"}
+        noteRepository.addNote(title, content, 0xFFFFFF)
+        assertEquals(NoteModel(title, content, 0xFFFFFF), noteRepository.getAllNotes().getOrAwaitValue()[0]) {"Note details are not matching"}
     }
 
     @Test
     @DisplayName("Inserting a note and then updating it")
     fun addAndUpdateNoteTest() = runTest {
-        noteRepository.addNote(title, content)
+        noteRepository.addNote(title, content, 0xFFFFFF)
         title = "Hello Aditya"
         content = "How are you doing"
-        noteRepository.updateNote(1, title, content)
-        assertEquals(NoteModel(title, content), noteRepository.getAllNotes().getOrAwaitValue()[0]) {"Updated values of notes are not being reflected"}
+        noteRepository.updateNote(1, title, content, 0xFFFFFF)
+        assertEquals(NoteModel(title, content, 0xFFFFFF), noteRepository.getAllNotes().getOrAwaitValue()[0]) {"Updated values of notes are not being reflected"}
     }
 
     @Test
     @DisplayName("Finding a note by its ID and then deleteing it")
     fun findByIDAndDeleteNoteTest() = runTest {
-        noteRepository.addNote(title, content)
+        noteRepository.addNote(title, content, 0xFFFFFF)
         val note = noteRepository.getNoteById(1)
         noteRepository.deleteNote(note!!.id)
-        assertEquals(NoteModel(title, content), note)
+        assertEquals(NoteModel(title, content, 0xFFFFFF), note)
         assertTrue(noteRepository.getNoteById(1)==null) {"The note was note deleted"}
     }
 
     @Test
     @DisplayName("Deleting multiple notes by their ID")
     fun deleteMultipleNotesTest() = runTest {
-        noteRepository.addNote(title, content)
+        noteRepository.addNote(title, content, 0xFFFFFF)
         title = "Hello Aditya"
         content = "How are you doing?"
-        noteRepository.addNote(title, content)
+        noteRepository.addNote(title, content, 0xFFFFFF)
         title = "Hello Yusuf"
         content = "Did you arrive early today?"
-        noteRepository.addNote(title, content)
+        noteRepository.addNote(title, content, 0xFFFFFF)
         noteRepository.deleteNotes(listOf(1,3))
         assertEquals(1, noteRepository.getAllNotes().getOrAwaitValue().size) {"All specified notes were not deleted"}
         assertTrue(noteRepository.getNoteById(2)!=null) {"Specified indexed note not deleted"}

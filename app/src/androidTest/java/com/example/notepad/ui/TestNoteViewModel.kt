@@ -17,8 +17,8 @@ class TestNoteViewModel(test_noteRepository: NoteRepository, appContext: Context
         EspressoIdlingResource.increment()
         CoroutineScope(Dispatchers.IO).launch {
             noteRepository.deleteAllNotes()
-            noteRepository.addNote("Hello", "Bye")
-            noteRepository.addNote("Aditya", "Raj")
+            noteRepository.addNote("Hello", "Bye", 0xFFFFFF)
+            noteRepository.addNote("Aditya", "Raj", 0xFFFFFF)
         }
         EspressoIdlingResource.decrement()
     }

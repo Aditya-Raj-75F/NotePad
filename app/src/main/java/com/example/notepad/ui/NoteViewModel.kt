@@ -14,13 +14,14 @@ open class NoteViewModel(appContext: Context) : ViewModel() {
     var id: Int = -1
     var title: String? = null
     var content: String? = null
+    var color: Int? = null
 
     open fun onSaveNote() {
         Coroutines.main {
             if(id == -1) {
-                noteRepository.addNote(title, content)
+                noteRepository.addNote(title, content, color)
             } else {
-                noteRepository.updateNote(id, title, content)
+                noteRepository.updateNote(id, title, content, color)
             }
         }
     }
@@ -50,5 +51,6 @@ open class NoteViewModel(appContext: Context) : ViewModel() {
         id = existingNote.id
         title = existingNote.title
         content = existingNote.content
+        color = existingNote.noteColor
     }
 }

@@ -1,5 +1,6 @@
 package com.example.notepad.util
 
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -8,11 +9,11 @@ import org.junit.jupiter.api.Test
 class CoroutinesTest {
 
     @Test
-    fun mainTest() {
-        var jobExecuted = false
+    fun mainTest() = runTest {
+        var jobExecuted= false
         Coroutines.main {
             jobExecuted = true
-            assertTrue(jobExecuted)
-        }
+        }.join()
+        assertTrue(jobExecuted)
     }
 }
